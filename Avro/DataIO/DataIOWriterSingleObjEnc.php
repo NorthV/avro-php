@@ -105,9 +105,7 @@ class DataIOWriterSingleObjEnc
     private function writeBlock(): void
     {
         if ($this->blockCount > 0) {
-            $this->encoder->writeLong($this->blockCount);
             $toWrite = (string) $this->buffer;
-            $this->encoder->writeLong(strlen($toWrite));
 
             if (!DataIO::isValidCodec($this->metadata[DataIO::METADATA_CODEC_ATTR])) {
                 throw new DataIOException(
@@ -116,7 +114,6 @@ class DataIOWriterSingleObjEnc
             }
 
             $this->write($toWrite);
-            $this->write($this->syncMarker);
             $this->buffer->truncate();
             $this->blockCount = 0;
         }
