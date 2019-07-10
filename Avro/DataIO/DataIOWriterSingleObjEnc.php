@@ -16,15 +16,16 @@ use Avro\Schema\Schema;
 class DataIOWriterSingleObjEnc
 {
     private $io;
-    private $encoder; 
+    private $encoder;
     private $datumWriter;
     private $buffer;
     private $bufferEncoder;
     private $blockCount;
     private $metadata;
     private $syncMarker;
+    private $packetHeader;
 
-    public function __construct(IO $io, IODatumWriter $datumWriter, Schema $writersSchema = null)
+    public function __construct(IO $io, IODatumWriter $datumWriter, Schema $writersSchema = null, string $sPacketHeader = '')
     {
         $this->io = $io;
         $this->encoder = new IOBinaryEncoder($this->io);
@@ -33,6 +34,7 @@ class DataIOWriterSingleObjEnc
         $this->bufferEncoder = new IOBinaryEncoder($this->buffer);
         $this->blockCount = 0;
         $this->metadata = [];
+        $this->packetHeader = $sPacketHeader;
 
         if ($writersSchema) {
             $this->syncMarker = self::generateSyncMarker();
@@ -122,9 +124,7 @@ class DataIOWriterSingleObjEnc
 
     private function writeHeader(): void
     {
-        $this->write(DataIO::magic());
-        $this->datumWriter->writeData(DataIO::metadataSchema(), $this->metadata, $this->encoder);
-        $this->write($this->syncMarker);
+        $this->write($this->packetHeader);
     }
 
     private function write(string $bytes): int
