@@ -16,7 +16,7 @@ use Avro\Registry\SchemaRegistry;
 class AvroSerDe
 {
 
-    public function serialize(string $sDataJson, string $sSchemaName, SchemaRegistry $oSchemaRegistry): string
+    public function serialize(string $sDataJson, SchemaRegistry $oSchemaRegistry, string $sSchemaName): string
     {
         $aData = json_decode($sDataJson, true) ?: [];
 
