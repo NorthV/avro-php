@@ -21,7 +21,7 @@ class AvroSerDe
         $aData = json_decode($sDataJson, true) ?: [];
 
         $oSchema = $oSchemaRegistry->getByName($sSchemaName);
-        $sPacketHeader = $oSchemaRegistry->getPacketHeaderByName($sSchemaName);
+        $sPacketHeader = $oSchemaRegistry->getPacketHeaderByName($oSchema);
 
         $oIO = new StringIO();
         $oDateWriter = new DataIOWriterSingleObjEnc($oIO, new IODatumWriter($oSchema), $oSchema, $sPacketHeader);

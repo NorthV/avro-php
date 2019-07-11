@@ -76,15 +76,8 @@ class SchemaRegistry
         return $aSchemaVersion;
 	}
 
-    /**
-     * @param int $id
-     * @return string
-     */
-    public function getSchemaJsonByVerId(int $id): string
-    {
-        $sSchemaJson = file_get_contents($this->sLinkGetByVerId . "/{$id}");
-        return $sSchemaJson;
-	}
+
+
 
     /**
      * @param int $id
@@ -92,11 +85,15 @@ class SchemaRegistry
      */
     public function getByVerId(int $id): Schema
     {
-        $sJson = $this->getSchemaJsonByVerId($id);
+        $sJson = file_get_contents($this->sLinkGetByVerId . "/{$id}");
         $o = json_decode($sJson);
         $oSchema = Schema::parse($o->schema);
         return $oSchema;
     }
+
+
+
+
 
     /**
      * @param string $name
@@ -104,10 +101,10 @@ class SchemaRegistry
      */
     public function getByName(string $name): Schema
     {
-        $this->aSchemas[$name]['metadata'] = $this->getSchemaLastVersion($name);
-        $this->aSchemas[$name]['obj'] = $this->getByVerId($this->aSchemas[$name]['metadata']['id']);
+        $aMeta = $this->getSchemaLastVersion($name);
+        $oSchema = $this->getByVerId($aMeta['id']);
 
-        return $this->aSchemas[$name]['obj'];
+        return $this->addCachedSchema($aMeta, $oSchema);
     }
 
     /**
@@ -117,9 +114,15 @@ class SchemaRegistry
      */
     public function getByNameVerNum(string $name, int $version_num): Schema
     {
-        $aSchemaVersion = $this->getSchemaVersionByNum($name, $version_num);
-        return $this->getByVerId($aSchemaVersion['id']);
+        $aMeta = $this->getSchemaVersionByNum($name, $version_num);
+        $oSchema = $this->getByVerId($aMeta['id']);
+
+        return $this->addCachedSchema($aMeta, $oSchema);
     }
+
+
+
+
 
     /**
      * @param int $id
@@ -133,13 +136,33 @@ class SchemaRegistry
     }
 
     /**
-     * @param string $name
+     * @param array $aMeta
+     * @param Schema $oSchema
+     * @return Schema
+     */
+    public function addCachedSchema(array $aMeta, Schema $oSchema): Schema
+    {
+        $key = spl_object_id($oSchema);
+        $this->aSchemas[$key]['metadata'] = $aMeta;
+        $this->aSchemas[$key]['obj'] = $oSchema;
+
+        return $oSchema;
+    }
+
+    /**
+     * @param Schema $oSchema
      * @return array
      */
-    public function getCachedSchemaMetadata(string $name): array
+    public function getCachedSchemaMetadata(Schema $oSchema): array
     {
-        return $this->aSchemas[$name]['metadata'];
+        return $this->aSchemas[spl_object_id($oSchema)]['metadata'];
     }
+
+
+
+
+
+
 
     /**
      * @param array $aMetadata
@@ -201,13 +224,14 @@ class SchemaRegistry
      * @param string $name
      * @return string
      */
-    public function getPacketHeaderByName(string $name): string
+    public function getPacketHeaderByName(Schema $oSchema): string
     {
-        if (!$this->getCachedSchemaMetadata($name)) {
-            $this->getByName($name);
+        if ($aMeta = $this->getCachedSchemaMetadata($oSchema)) {
+            return $this->generatePacketHeader(
+                $aMeta['schemaMetadataId'],
+                $aMeta['version'],
+            );
         }
-        ['schemaMetadataId' => $iSchemaId, 'version' => $iVersionNum] = $this->getCachedSchemaMetadata($name);
-        return $this->generatePacketHeader($iSchemaId, $iVersionNum);
     }
 
 
