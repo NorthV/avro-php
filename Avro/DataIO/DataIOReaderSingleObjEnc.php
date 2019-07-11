@@ -6,6 +6,7 @@ use Avro\Datum\IOBinaryDecoder;
 use Avro\Datum\IODatumReader;
 use Avro\Exception\DataIoException;
 use Avro\IO\IO;
+use Avro\Registry\SchemaRegistry;
 use Avro\Schema\Schema;
 use Avro\Util\Util;
 
@@ -17,8 +18,8 @@ class DataIOReaderSingleObjEnc
     private $io;
     private $decoder;
     private $datumReader;
+    private $oSchemaRegistry;
     private $blockCount;
-    private $magic;
 
     /**
      * @var array
@@ -30,12 +31,12 @@ class DataIOReaderSingleObjEnc
      */
     private $syncMarker;
 
-    public function __construct(IO $io, IODatumReader $datumReader)
+    public function __construct(IO $io, IODatumReader $datumReader, SchemaRegistry $oSchemaRegistry)
     {
-        $this->magic = chr(1);
         $this->io = $io;
         $this->decoder = new IOBinaryDecoder($this->io);
         $this->datumReader = $datumReader;
+        $this->oSchemaRegistry = $oSchemaRegistry;
         $this->blockCount = 0;
         $this->readHeader();
 
@@ -52,19 +53,10 @@ class DataIOReaderSingleObjEnc
     {
         $data = [];
         while (true) {
-            if (0 === $this->blockCount) {
-                if ($this->isEof()) {
-                    break;
-                }
-
-                if ($this->skipSync() && $this->isEof()) {
-                    break;
-                }
-
-                $this->readBlockHeader();
+            if ($this->isEof()) {
+                break;
             }
             $data[] = $this->datumReader->read($this->decoder);
-            --$this->blockCount;
         }
 
         return $data;
@@ -89,18 +81,16 @@ class DataIOReaderSingleObjEnc
     {
         $this->seek(0, IO::SEEK_SET);
 
-        $magic = $this->read(strlen($this->magic));
+        $sHeader = $this->read($this->oSchemaRegistry::HEADER_LEN);
+        [
+            'schema_id' => $iSchemaId,
+            'version_num' => $iVersionNum
+        ] = $this->oSchemaRegistry->parsePacketHeader($sHeader);
 
-        if ($magic !== $this->magic) {
-            throw new DataIoException(sprintf('Not an Avro data file: %s does not match %s', bin2hex($magic), bin2hex($this->magic)));
-        }
+        $oSheme = $this->oSchemaRegistry->getByIdVerNum($iSchemaId, $iVersionNum);
 
-        $this->metadata = $this->datumReader->readData(
-            DataIO::metadataSchema(),
-            DataIO::metadataSchema(),
-            $this->decoder
-        );
-        $this->syncMarker = $this->read(DataIO::SYNC_SIZE);
+        $this->metadata[DataIO::METADATA_CODEC_ATTR] = DataIO::NULL_CODEC;
+        $this->metadata[DataIO::METADATA_SCHEMA_ATTR] = (string) $oSheme;
     }
 
     private function seek(int $offset, int $whence): bool
