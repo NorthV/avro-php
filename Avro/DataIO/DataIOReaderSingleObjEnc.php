@@ -12,12 +12,13 @@ use Avro\Util\Util;
 /**
  * Reads Avro data from an IO source using an AvroSchema.
  */
-class DataIOReader
+class DataIOReaderSingleObjEnc
 {
     private $io;
     private $decoder;
     private $datumReader;
     private $blockCount;
+    private $magic;
 
     /**
      * @var array
@@ -31,6 +32,7 @@ class DataIOReader
 
     public function __construct(IO $io, IODatumReader $datumReader)
     {
+        $this->magic = chr(1);
         $this->io = $io;
         $this->decoder = new IOBinaryDecoder($this->io);
         $this->datumReader = $datumReader;
@@ -87,14 +89,10 @@ class DataIOReader
     {
         $this->seek(0, IO::SEEK_SET);
 
-        $magic = $this->read(DataIO::magicSize());
+        $magic = $this->read(strlen($this->magic));
 
-        if (strlen($magic) < DataIO::magicSize()) {
-            throw new DataIoException('Not an Avro data file: shorter than the Avro magic block');
-        }
-
-        if (DataIO::magic() !== $magic) {
-            throw new DataIoException(sprintf('Not an Avro data file: %s does not match %s', $magic, DataIO::magic()));
+        if ($magic !== $this->magic) {
+            throw new DataIoException(sprintf('Not an Avro data file: %s does not match %s', bin2hex($magic), bin2hex($this->magic)));
         }
 
         $this->metadata = $this->datumReader->readData(
