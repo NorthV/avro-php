@@ -221,10 +221,10 @@ class SchemaRegistry
     }
 
     /**
-     * @param string $name
+     * @param Schema $oSchema
      * @return string
      */
-    public function getPacketHeaderByName(Schema $oSchema): string
+    public function getPacketHeaderFromCachedMeta(Schema $oSchema): string
     {
         if ($aMeta = $this->getCachedSchemaMetadata($oSchema)) {
             return $this->generatePacketHeader(
