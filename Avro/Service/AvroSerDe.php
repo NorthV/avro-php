@@ -16,9 +16,12 @@ use Avro\Registry\SchemaRegistry;
 class AvroSerDe
 {
 
-    public function serialize(string $sDataJson, Schema $oSchema, string $sPacketHeader = ''): string
+    public function serialize(string $sDataJson, string $sSchemaName, SchemaRegistry $oSchemaRegistry): string
     {
         $aData = json_decode($sDataJson, true) ?: [];
+
+        $oSchema = $oSchemaRegistry->getByName($sSchemaName);
+        $sPacketHeader = $oSchemaRegistry->getPacketHeaderByName($sSchemaName);
 
         $oIO = new StringIO();
         $oDateWriter = new DataIOWriterSingleObjEnc($oIO, new IODatumWriter($oSchema), $oSchema, $sPacketHeader);
