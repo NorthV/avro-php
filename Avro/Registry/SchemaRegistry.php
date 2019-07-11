@@ -47,7 +47,7 @@ class SchemaRegistry
      * @param int $id
      * @return array
      */
-    public function getSchemeMetaById(int $id): array
+    public function getSchemaMetaById(int $id): array
     {
         $sJson = file_get_contents($this->sLinkGetMetaById . "/{$id}");
         $aSchemaMeta = json_decode($sJson, true);
@@ -58,7 +58,7 @@ class SchemaRegistry
      * @param string $name
      * @return array
      */
-    public function getSchemeVersionByNum(string $name, int $version_num): array
+    public function getSchemaVersionByNum(string $name, int $version_num): array
     {
         $sJson = file_get_contents(str_replace('{{schema_name}}', $name, $this->sLinkGetVersion) . "/{$version_num}");
         $aSchemaVersion = json_decode($sJson, true);
@@ -69,7 +69,7 @@ class SchemaRegistry
      * @param string $name
      * @return array
      */
-    public function getSchemeLastVersion(string $name): array
+    public function getSchemaLastVersion(string $name): array
     {
         $sSchemaJson = file_get_contents(str_replace('{{schema_name}}', $name, $this->sLinkGetLastVersion));
         $aSchemaVersion = json_decode($sSchemaJson, true);
@@ -104,7 +104,7 @@ class SchemaRegistry
      */
     public function getByName(string $name): Schema
     {
-        $this->aSchemas[$name]['metadata'] = $this->getSchemeLastVersion($name);
+        $this->aSchemas[$name]['metadata'] = $this->getSchemaLastVersion($name);
         $this->aSchemas[$name]['obj'] = $this->getByVerId($this->aSchemas[$name]['metadata']['id']);
 
         return $this->aSchemas[$name]['obj'];
@@ -117,8 +117,8 @@ class SchemaRegistry
      */
     public function getByNameVerNum(string $name, int $version_num): Schema
     {
-        $aSchemeVersion = $this->getSchemeVersionByNum($name, $version_num);
-        return $this->getByVerId($aSchemeVersion['id']);
+        $aSchemaVersion = $this->getSchemaVersionByNum($name, $version_num);
+        return $this->getByVerId($aSchemaVersion['id']);
     }
 
     /**
@@ -128,8 +128,8 @@ class SchemaRegistry
      */
     public function getByIdVerNum(int $id, int $version_num): Schema
     {
-        $aSchemeMeta = $this->getSchemeMetaById($id);
-        return $this->getByNameVerNum($aSchemeMeta['schemaMetadata']['name'], $version_num);
+        $aSchemaMeta = $this->getSchemaMetaById($id);
+        return $this->getByNameVerNum($aSchemaMeta['schemaMetadata']['name'], $version_num);
     }
 
     /**
