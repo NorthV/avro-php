@@ -54,6 +54,9 @@ class SchemaRegistry
         return $aSchemaMeta;
 	}
 
+
+
+
     /**
      * @param string $name
      * @return array
@@ -160,6 +163,19 @@ class SchemaRegistry
 
 
 
+    /**
+     * @param Schema $oSchema
+     * @return string
+     */
+    public function getPacketHeaderFromCachedMeta(Schema $oSchema): string
+    {
+        if ($aMeta = $this->getCachedSchemaMetadata($oSchema)) {
+            return $this->generatePacketHeader(
+                $aMeta['schemaMetadataId'],
+                $aMeta['version'],
+                );
+        }
+    }
 
 
 
@@ -220,19 +236,6 @@ class SchemaRegistry
         return hexdec($hex);
     }
 
-    /**
-     * @param Schema $oSchema
-     * @return string
-     */
-    public function getPacketHeaderFromCachedMeta(Schema $oSchema): string
-    {
-        if ($aMeta = $this->getCachedSchemaMetadata($oSchema)) {
-            return $this->generatePacketHeader(
-                $aMeta['schemaMetadataId'],
-                $aMeta['version'],
-            );
-        }
-    }
 
 
 
