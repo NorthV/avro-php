@@ -10,8 +10,8 @@ composer require symfony/http-foundation
 composer config repositories.avro vcs https://github.com/northv/avro-php
 composer require northv/avro-php
 
-echo 'AVRO_REGISTRY_LINK=http://ssh:7788/api/v1/schemaregistry' >> .env
-echo 'AVRO_CONFLUENT_LINK=http://ssh:7788/api/v1/confluent'     >> .env
+echo "AVRO_REGISTRY_LINK=http://${1}/api/v1/schemaregistry" >> .env
+echo "AVRO_CONFLUENT_LINK=http://${1}/api/v1/confluent"     >> .env
 
 mkdir templates/AvroSerDe
 cp vendor/northv/avro-php/Resources/views/AvroSerDe/index.html.twig templates/AvroSerDe/index.html.twig
