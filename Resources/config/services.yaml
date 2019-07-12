@@ -3,3 +3,23 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    avro_registry_link:             '%env(resolve:AVRO_REGISTRY_LINK)%'
+    avro_registry_get_list:         '%avro_registry_link%/schemas'
+    avro_registry_get_meta_by_id:   '%avro_registry_link%/schemasById'
+    avro_registry_get_last_version: '%avro_registry_link%/schemas/{{schema_name}}/versions/latest'
+    avro_registry_get_version:      '%avro_registry_link%/schemas/{{schema_name}}/versions'
+    avro_confluent_link:            '%env(resolve:AVRO_CONFLUENT_LINK)%'
+    avro_confluent_get_by_ver_id:   '%avro_confluent_link%/schemas/ids'
+
+services:
+    Avro\Service\AvroSerDe:
+    Avro\Registry\SchemaRegistry:
+        arguments:
+            $sLink:                 '%avro_registry_link%'
+            $sLinkGetList:          '%avro_registry_get_list%'
+            $sLinkGetMetaById:      '%avro_registry_get_meta_by_id%'
+            $sLinkGetLastVersion:   '%avro_registry_get_last_version%'
+            $sLinkGetVersion:       '%avro_registry_get_version%'
+            $sLinkGetByVerId:       '%avro_confluent_get_by_ver_id%'
+

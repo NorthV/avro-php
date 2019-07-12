@@ -1,13 +1,13 @@
 <?php
 
-namespace NorthV\AvroPHPBundle\DependencyInjection;
+namespace Acme\AvroBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class NorthVAvroPHPExtension extends Extension
+class AcmeAvroExtension extends Extension
 {
 
 
