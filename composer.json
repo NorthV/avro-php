@@ -27,7 +27,8 @@
     "autoload": {
         "psr-4" : {
             "Avro\\": "Avro/",
-            "NorthV\\AvroPHPBundle\\": ""
+            "NorthV\\AvroPHPBundle\\": "",
+            "Acme\\AvroBundle\\": ""
         }
     },
     "autoload-dev": {
