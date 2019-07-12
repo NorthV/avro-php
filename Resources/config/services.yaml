@@ -23,3 +23,5 @@ services:
             $sLinkGetVersion:       '%avro_registry_get_version%'
             $sLinkGetByVerId:       '%avro_confluent_get_by_ver_id%'
 
+    Acme\AvroBundle\Controller\AvroSerDeController:
+        tags: ['controller.service_arguments']
