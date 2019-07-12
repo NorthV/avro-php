@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu
 
 #cd /var/www/html/docs
 composer create-project symfony/skeleton $(pwd)
