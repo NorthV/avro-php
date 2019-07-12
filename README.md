@@ -12,6 +12,12 @@ The core logic remains the same but I've added Composer support, PSR-4 autoloadi
 $ composer require northv/avro-php
 ```
 
+or
+
+```bash
+$ bash install_symfony_skeleton_project.sh
+```
+
 ### Usage
 
 Based on the official library's example:

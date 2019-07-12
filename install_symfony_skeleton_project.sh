@@ -1,5 +1,8 @@
+#!/bin/bash
+set -e
+
 #cd /var/www/html/docs
-composer create-project symfony/skeleton .
+composer create-project symfony/skeleton $(pwd)
 composer require symfony/twig-bundle
 composer require sensio/framework-extra-bundle
 composer require symfony/http-foundation
