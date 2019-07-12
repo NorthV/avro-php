@@ -15,7 +15,7 @@ $ composer require northv/avro-php
 or
 
 ```bash
-$ bash install_symfony_skeleton_project.sh
+$ bash install_symfony_skeleton_project.sh server_name:port
 ```
 
 ### Usage
