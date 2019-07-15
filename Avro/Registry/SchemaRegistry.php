@@ -2,14 +2,14 @@
 
 namespace Apache\Avro\Registry;
 
-use Avro\DataIO\DataIO;
-use Avro\DataIO\DataIOReader;
-use Avro\DataIO\DataIOWriter;
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\Exception\DataIoException;
-use Avro\IO\StringIO;
-use Avro\Schema\Schema;
+use Apache\Avro\DataIO\DataIO;
+use Apache\Avro\DataIO\DataIOReader;
+use Apache\Avro\DataIO\DataIOWriter;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\IO\StringIO;
+use Apache\Avro\Schema\Schema;
 
 class SchemaRegistry
 {

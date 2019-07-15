@@ -2,16 +2,16 @@
 
 namespace Apache\Avro\Service;
 
-use Avro\DataIO\DataIO;
-use Avro\DataIO\DataIOReader;
-use Avro\DataIO\DataIOReaderSingleObjEnc;
-use Avro\DataIO\DataIOWriter;
-use Avro\DataIO\DataIOWriterSingleObjEnc;
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\IO\StringIO;
-use Avro\Schema\Schema;
-use Avro\Registry\SchemaRegistry;
+use Apache\Avro\DataIO\DataIO;
+use Apache\Avro\DataIO\DataIOReader;
+use Apache\Avro\DataIO\DataIOReaderSingleObjEnc;
+use Apache\Avro\DataIO\DataIOWriter;
+use Apache\Avro\DataIO\DataIOWriterSingleObjEnc;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\IO\StringIO;
+use Apache\Avro\Schema\Schema;
+use Apache\Avro\Registry\SchemaRegistry;
 
 class AvroSerDe
 {
