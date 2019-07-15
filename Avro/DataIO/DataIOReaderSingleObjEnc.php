@@ -89,6 +89,8 @@ class DataIOReaderSingleObjEnc
 
         $oSheme = $this->oSchemaRegistry->getByIdVerNum($iSchemaId, $iVersionNum);
 
+        $this->metadata['schema_id'] = $iSchemaId;
+        $this->metadata['version_num'] = $iVersionNum;
         $this->metadata[DataIO::METADATA_CODEC_ATTR] = DataIO::NULL_CODEC;
         $this->metadata[DataIO::METADATA_SCHEMA_ATTR] = (string) $oSheme;
     }

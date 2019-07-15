@@ -17,26 +17,54 @@
         </div>
         <div class="form-group">
             <label for="formSchemaJson">SchemaJson</label>
-            <textarea class="form-control" id="formSchemaJson" rows="3">{{ schema_json }}</textarea>
+            <textarea class="form-control" id="formSchemaJson" rows="3" disabled="disabled" autocomplete="off">{{ schema_json }}</textarea>
         </div>
         <div class="form-group">
             <label for="formDataJson">DataJson</label>
             <textarea name="data_json" class="form-control" id="formDataJson" rows="3">{{ data_json }}</textarea>
         </div>
         <div class="form-group">
-            <label for="formResultJson">ResultJson</label>
-            <textarea class="form-control" id="formResultJson" rows="3">{{ result_json }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="formResultBin">ResultBin</label>
-            <textarea class="form-control" id="formResultBin" rows="3">{{ result_bin }}</textarea>
+            <label for="formResult">Result</label>
+            <textarea class="form-control" id="formResult" rows="3" disabled="disabled" autocomplete="off">{{ result }}</textarea>
         </div>
         <div class="form-row align-items-center">
             <div class="col-auto my-1">
                 <a href="?"><button type="button" class="btn btn-primary">Reset</button></a>
             </div>
             <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button name="action" value="serialize" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+    <form action="" method="GET">
+        <div class="form-group">
+            <label for="formPacket">Packet</label>
+            <textarea name="packet" class="form-control" id="formPacket" rows="3">{{ packet }}</textarea>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="formSchemaId">SchemaId</label>
+                <input type="text" class="form-control" id="formSchemaId" value="{{ unpacked_schema_id }}" disabled="disabled" autocomplete="off">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="formSchemaVerNum">SchemaVerNum</label>
+                <input type="text" class="form-control" id="formSchemaVerNum" value="{{ unpacked_schema_ver_num }}" disabled="disabled" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="formSchemaJson">SchemaJson</label>
+            <textarea class="form-control" id="formSchemaJson" rows="3" disabled="disabled" autocomplete="off">{{ unpacked_schema_json }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="formDataJson">DataJson</label>
+            <textarea name="data_json" class="form-control" id="formDataJson" rows="3" disabled="disabled" autocomplete="off">{{ unpacked_data_json }}</textarea>
+        </div>
+        <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+                <a href="?"><button type="button" class="btn btn-primary">Reset</button></a>
+            </div>
+            <div class="col-auto my-1">
+                <button name="action" value="deserialize" type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>

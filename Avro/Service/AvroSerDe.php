@@ -69,7 +69,12 @@ class AvroSerDe
             $aData[] = $item;
         }
 
-        return $aData;
+        return [
+            'data'          => $aData,
+            'schema'        => $oDataReader->getMetaDataFor(DataIO::METADATA_SCHEMA_ATTR),
+            'schema_id'     => $oDataReader->getMetaDataFor('schema_id'),
+            'version_num'   => $oDataReader->getMetaDataFor('version_num'),
+        ];
 	}
 
 
