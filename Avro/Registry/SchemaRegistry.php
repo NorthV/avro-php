@@ -9,6 +9,7 @@ use Apache\Avro\Datum\IODatumReader;
 use Apache\Avro\Datum\IODatumWriter;
 use Apache\Avro\Exception\BadRequestStatusCodeException;
 use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\Exception\NoCachedMetaException;
 use Apache\Avro\Exception\SchemaParseException;
 use Apache\Avro\IO\StringIO;
 use Apache\Avro\Schema\Schema;
@@ -191,17 +192,24 @@ class SchemaRegistry
     /**
      * @param Schema $oSchema
      * @return array
+     * @throws NoCachedMetaException
      */
     public function getCachedSchemaMetadata(Schema $oSchema): array
     {
-        return $this->aSchemas[spl_object_id($oSchema)]['metadata'];
+        if (isset($this->aSchemas[spl_object_id($oSchema)])) {
+            $aMeta = $this->aSchemas[spl_object_id($oSchema)]['metadata'];
+        }
+        else {
+            throw new NoCachedMetaException($oSchema);
+        }
+        return $aMeta;
     }
-
 
 
     /**
      * @param Schema $oSchema
      * @return string
+     * @throws NoCachedMetaException
      */
     public function getPacketHeaderFromCachedMeta(Schema $oSchema): string
     {
