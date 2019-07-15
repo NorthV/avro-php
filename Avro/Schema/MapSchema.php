@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
 /**
  * Avro map schema consisting of named values of defined Avro Schema types.

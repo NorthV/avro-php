@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Debug;
+namespace Apache\Avro\Debug;
 
-use Avro\Exception\Exception;
+use Apache\Avro\Exception\Exception;
 
 /**
  * Avro library code debugging functions.

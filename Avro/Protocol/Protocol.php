@@ -1,9 +1,9 @@
 <?php
 
-namespace Avro\Protocol;
+namespace Apache\Avro\Protocol;
 
-use Avro\Schema\NamedSchemata;
-use Avro\Schema\Schema;
+use Apache\Avro\Schema\NamedSchemata;
+use Apache\Avro\Schema\Schema;
 
 /**
  * Avro library for protocols.

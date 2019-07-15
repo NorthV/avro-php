@@ -1,11 +1,11 @@
 <?php
 
-namespace Avro\Protocol;
+namespace Apache\Avro\Protocol;
 
-use Avro\Schema\Name;
-use Avro\Schema\PrimitiveSchema;
-use Avro\Schema\RecordSchema;
-use Avro\Schema\Schema;
+use Apache\Avro\Schema\Name;
+use Apache\Avro\Schema\PrimitiveSchema;
+use Apache\Avro\Schema\RecordSchema;
+use Apache\Avro\Schema\Schema;
 
 class ProtocolMessage
 {

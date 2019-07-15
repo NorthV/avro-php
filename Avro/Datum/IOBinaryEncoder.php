@@ -1,10 +1,10 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Avro;
-use Avro\GMP\GMP;
-use Avro\IO\IO;
+use Apache\Avro\Avro;
+use Apache\Avro\GMP\GMP;
+use Apache\Avro\IO\IO;
 
 /**
  * Encodes and writes Avro data to an IO object using Avro binary encoding.

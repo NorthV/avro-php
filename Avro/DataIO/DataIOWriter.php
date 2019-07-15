@@ -1,14 +1,14 @@
 <?php
 
-namespace Avro\DataIO;
+namespace Apache\Avro\DataIO;
 
-use Avro\Datum\IOBinaryEncoder;
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\Exception\DataIoException;
-use Avro\IO\IO;
-use Avro\IO\StringIO;
-use Avro\Schema\Schema;
+use Apache\Avro\Datum\IOBinaryEncoder;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\IO\IO;
+use Apache\Avro\IO\StringIO;
+use Apache\Avro\Schema\Schema;
 
 /**
  * Writes Avro data to an AvroIO source using an AvroSchema.

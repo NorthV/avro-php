@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Exception;
+namespace Apache\Avro\Exception;
 
 class Exception extends \Exception
 {

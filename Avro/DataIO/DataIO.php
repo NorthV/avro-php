@@ -1,13 +1,13 @@
 <?php
 
-namespace Avro\DataIO;
+namespace Apache\Avro\DataIO;
 
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\Exception\DataIoException;
-use Avro\IO\File;
-use Avro\IO\IO;
-use Avro\Schema\Schema;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\IO\File;
+use Apache\Avro\IO\IO;
+use Apache\Avro\Schema\Schema;
 
 class DataIO
 {

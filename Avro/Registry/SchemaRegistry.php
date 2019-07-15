@@ -1,6 +1,6 @@
 <?php /* й */
 
-namespace Avro\Registry;
+namespace Apache\Avro\Registry;
 
 use Avro\DataIO\DataIO;
 use Avro\DataIO\DataIOReader;

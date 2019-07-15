@@ -1,10 +1,10 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
-use Avro\Exception\Exception;
-use Avro\Exception\SchemaParseException;
-use Avro\Util\Util;
+use Apache\Avro\Exception\Exception;
+use Apache\Avro\Exception\SchemaParseException;
+use Apache\Avro\Util\Util;
 
 class EnumSchema extends NamedSchema
 {

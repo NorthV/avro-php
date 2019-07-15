@@ -1,13 +1,13 @@
 <?php
 
-namespace Avro\DataIO;
+namespace Apache\Avro\DataIO;
 
-use Avro\Datum\IOBinaryDecoder;
-use Avro\Datum\IODatumReader;
-use Avro\Exception\DataIoException;
-use Avro\IO\IO;
-use Avro\Schema\Schema;
-use Avro\Util\Util;
+use Apache\Avro\Datum\IOBinaryDecoder;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\IO\IO;
+use Apache\Avro\Schema\Schema;
+use Apache\Avro\Util\Util;
 
 /**
  * Reads Avro data from an IO source using an AvroSchema.

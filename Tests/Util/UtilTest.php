@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Util;
+namespace Apache\Avro\Util;
 
 use PHPUnit\Framework\TestCase;
 

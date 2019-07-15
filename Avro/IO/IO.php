@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\IO;
+namespace Apache\Avro\IO;
 
 /**
  * Barebones IO base class to provide common interface for file and string access within the Avro classes.

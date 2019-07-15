@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\DataIO;
+namespace Apache\Avro\DataIO;
 
 use Avro\Datum\IOBinaryDecoder;
 use Avro\Datum\IODatumReader;

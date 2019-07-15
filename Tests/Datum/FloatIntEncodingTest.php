@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Debug\Debug;
+use Apache\Avro\Debug\Debug;
 use PHPUnit\Framework\TestCase;
 
 class FloatIntEncodingTest extends TestCase

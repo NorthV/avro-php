@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
-use Avro\Exception\SchemaParseException;
+use Apache\Avro\Exception\SchemaParseException;
 
 class Name
 {

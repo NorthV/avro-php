@@ -1,10 +1,10 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Exception\Exception;
-use Avro\Exception\IOSchemaMatchException;
-use Avro\Schema\Schema;
+use Apache\Avro\Exception\Exception;
+use Apache\Avro\Exception\IOSchemaMatchException;
+use Apache\Avro\Schema\Schema;
 
 /**
  * Handles schema-specifc reading of data from the decoder.

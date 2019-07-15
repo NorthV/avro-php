@@ -1,10 +1,10 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Debug\Debug;
-use Avro\IO\StringIO;
-use Avro\Schema\Schema;
+use Apache\Avro\Debug\Debug;
+use Apache\Avro\IO\StringIO;
+use Apache\Avro\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 class DatumIOTest extends TestCase

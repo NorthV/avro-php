@@ -1,38 +1,19 @@
 {
-    "name": "northv/avro-php",
+    "name": "apache/avro-php",
     "description": "Implementation of Apache's Avro PHP library with Composer support, PSR-4 autoloading, namespaces, and type hinted method parameters",
     "type": "symfony-bundle",
     "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Andreas Grzywatz",
-            "email": "andreas.grzywatz@sensiolabs.de"
-        },
-        {
-            "name": "Philipp Witzmann",
-            "email": "philipp.witzmann@sh.de"
-        }
-    ],
     "require": {
         "php": "^7.2",
         "ext-json": "*"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.11",
-        "phpunit/phpunit": "^7.0"
     },
     "config": {
         "sort-packages": true
     },
     "autoload": {
         "psr-4" : {
-            "Avro\\": "Avro/",
-            "Acme\\AvroBundle\\": ""
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Avro\\": "Tests/"
+            "Apache\\Avro\\": "Avro/",
+            "Apache\\AvroBundle\\": "AvroBundle/"
         }
     }
 }

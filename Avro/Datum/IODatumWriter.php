@@ -1,16 +1,16 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Exception\Exception;
-use Avro\Exception\IOTypeException;
-use Avro\Schema\ArraySchema;
-use Avro\Schema\EnumSchema;
-use Avro\Schema\FixedSchema;
-use Avro\Schema\MapSchema;
-use Avro\Schema\RecordSchema;
-use Avro\Schema\Schema;
-use Avro\Schema\UnionSchema;
+use Apache\Avro\Exception\Exception;
+use Apache\Avro\Exception\IOTypeException;
+use Apache\Avro\Schema\ArraySchema;
+use Apache\Avro\Schema\EnumSchema;
+use Apache\Avro\Schema\FixedSchema;
+use Apache\Avro\Schema\MapSchema;
+use Apache\Avro\Schema\RecordSchema;
+use Apache\Avro\Schema\Schema;
+use Apache\Avro\Schema\UnionSchema;
 
 /**
  * Handles schema-specific writing of data to the encoder.

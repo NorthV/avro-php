@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
-use Avro\Exception\SchemaParseException;
+use Apache\Avro\Exception\SchemaParseException;
 
 /**
  *  Keeps track of NamedSchema which have been observed so far, as well as the default namespace.

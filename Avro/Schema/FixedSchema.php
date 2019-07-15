@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
 /**
  * NamedSchema with fixed-length data values.

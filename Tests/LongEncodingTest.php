@@ -1,10 +1,10 @@
 <?php
 
-namespace Avro;
+namespace Apache\Avro;
 
-use Avro\Datum\IOBinaryDecoder;
-use Avro\Datum\IOBinaryEncoder;
-use Avro\GMP\GMP;
+use Apache\Avro\Datum\IOBinaryDecoder;
+use Apache\Avro\Datum\IOBinaryEncoder;
+use Apache\Avro\GMP\GMP;
 use PHPUnit\Framework\TestCase;
 
 class LongEncodingTest extends TestCase

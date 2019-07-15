@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
 /**
  * Parent class of named Avro schema.

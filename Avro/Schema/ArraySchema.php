@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
 /**
  * Avro array schema, consisting of items of a particular Avro schema type.

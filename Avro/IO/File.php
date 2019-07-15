@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\IO;
+namespace Apache\Avro\IO;
 
-use Avro\Exception\IOException;
+use Apache\Avro\Exception\IOException;
 
 /**
  * IO wrapper for PHP file access functions.

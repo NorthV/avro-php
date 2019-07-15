@@ -1,9 +1,9 @@
 <?php
 
-namespace Avro;
+namespace Apache\Avro;
 
-use Avro\Debug\Debug;
-use Avro\Exception\Exception;
+use Apache\Avro\Debug\Debug;
+use Apache\Avro\Exception\Exception;
 
 class Avro
 {

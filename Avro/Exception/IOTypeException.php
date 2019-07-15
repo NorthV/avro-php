@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Exception;
+namespace Apache\Avro\Exception;
 
-use Avro\Schema\Schema;
+use Apache\Avro\Schema\Schema;
 
 /**
  * Exceptions arising from writing or reading Avro data.

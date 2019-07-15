@@ -1,14 +1,14 @@
 <?php
 
-namespace Avro\IO;
+namespace Apache\Avro\IO;
 
-use Avro\DataIO\DataIOReader;
-use Avro\DataIO\DataIOWriter;
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\Debug\Debug;
-use Avro\Exception\IOException;
-use Avro\Schema\Schema;
+use Apache\Avro\DataIO\DataIOReader;
+use Apache\Avro\DataIO\DataIOWriter;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Debug\Debug;
+use Apache\Avro\Exception\IOException;
+use Apache\Avro\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 class StringIOTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\Util;
+namespace Apache\Avro\Util;
 
 /**
  * Class for static utility methods used in Avro.

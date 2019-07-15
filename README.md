@@ -25,13 +25,13 @@ Based on the official library's example:
 ```php
 <?php
 
-use Avro\DataIO\DataIO;
-use Avro\DataIO\DataIOReader;
-use Avro\DataIO\DataIOWriter;
-use Avro\Datum\IODatumReader;
-use Avro\Datum\IODatumWriter;
-use Avro\IO\StringIO;
-use Avro\Schema\Schema;
+use Apache\Avro\DataIO\DataIO;
+use Apache\Avro\DataIO\DataIOReader;
+use Apache\Avro\DataIO\DataIOWriter;
+use Apache\Avro\Datum\IODatumReader;
+use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\IO\StringIO;
+use Apache\Avro\Schema\Schema;
 
 require_once('vendor/autoload.php');
 

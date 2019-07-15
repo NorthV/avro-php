@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\DataIO;
+namespace Apache\Avro\DataIO;
 
 use PHPUnit\Framework\TestCase;
 

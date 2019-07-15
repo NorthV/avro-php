@@ -1,6 +1,6 @@
 <?php
 
-namespace Avro\GMP;
+namespace Apache\Avro\GMP;
 
 /**
  * Methods for handling 64-bit operations using the GMP extension.

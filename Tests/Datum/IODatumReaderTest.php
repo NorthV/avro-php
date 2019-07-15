@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Datum;
+namespace Apache\Avro\Datum;
 
-use Avro\Schema\Schema;
+use Apache\Avro\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 class IODatumReaderTest extends TestCase

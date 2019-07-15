@@ -1,8 +1,8 @@
 <?php
 
-namespace Avro\Protocol;
+namespace Apache\Avro\Protocol;
 
-use Avro\Exception\SchemaParseException;
+use Apache\Avro\Exception\SchemaParseException;
 use PHPUnit\Framework\TestCase;
 
 class ProtocolTest extends TestCase

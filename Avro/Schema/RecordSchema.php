@@ -1,9 +1,9 @@
 <?php
 
-namespace Avro\Schema;
+namespace Apache\Avro\Schema;
 
-use Avro\Exception\SchemaParseException;
-use Avro\Util\Util;
+use Apache\Avro\Exception\SchemaParseException;
+use Apache\Avro\Util\Util;
 
 class RecordSchema extends NamedSchema
 {
