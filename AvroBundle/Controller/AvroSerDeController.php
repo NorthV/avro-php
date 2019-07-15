@@ -53,6 +53,7 @@ class AvroSerDeController extends AbstractController
         }
         elseif ($sAction === 'deserialize') {
             if ($sPacketHex) {
+                $sPacketHex = preg_replace('/\s+/', '', $sPacketHex);
                 [
                     'data'          => $aData,
                     'schema'        => $oUnpackedSchema,
