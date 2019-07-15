@@ -25,7 +25,7 @@ cp vendor/apache/avro-php/AvroBundle/Resources/views/AvroSerDe/index.html.twig  
 
 cat vendor/apache/avro-php/AvroBundle/Resources/views/base.html.twig               > templates/base.html.twig
 cat vendor/apache/avro-php/AvroBundle/Resources/assets/css/app.css                 > assets/css/app.css
-cat vendor/apache/avro-php/AvroBundle/Resources/assets/css/app.js                  > assets/js/app.js
+cat vendor/apache/avro-php/AvroBundle/Resources/assets/js/app.js                   > assets/js/app.js
 
 sed -i "s/\/\/.enableSassLoader()/.enableSassLoader()/" webpack.config.js
 yarn encore dev
