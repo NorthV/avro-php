@@ -180,7 +180,7 @@ class SchemaRegistry
      * @param Schema $oSchema
      * @return Schema
      */
-    public function addCachedSchema(array $aMeta, Schema $oSchema): Schema
+    private function addCachedSchema(array $aMeta, Schema $oSchema): Schema
     {
         $key = spl_object_id($oSchema);
         $this->aSchemas[$key]['metadata'] = $aMeta;

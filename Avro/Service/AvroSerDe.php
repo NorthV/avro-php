@@ -9,12 +9,15 @@ use Apache\Avro\DataIO\DataIOWriter;
 use Apache\Avro\DataIO\DataIOWriterSingleObjEnc;
 use Apache\Avro\Datum\IODatumReader;
 use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Exception\BadRequestStatusCodeException;
 use Apache\Avro\Exception\DataIoException;
 use Apache\Avro\Exception\IOException;
+use Apache\Avro\Exception\NoCachedMetaException;
 use Apache\Avro\Exception\SchemaParseException;
 use Apache\Avro\IO\StringIO;
 use Apache\Avro\Schema\Schema;
 use Apache\Avro\Registry\SchemaRegistry;
+use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 
 class AvroSerDe
@@ -26,8 +29,10 @@ class AvroSerDe
      * @param string $sSchemaName
      * @return string
      * @throws IOException
-     * @throws JsonException
      * @throws SchemaParseException
+     * @throws BadRequestStatusCodeException
+     * @throws NoCachedMetaException
+     * @throws GuzzleException
      */
     public function serialize(string $sDataJson, SchemaRegistry $oSchemaRegistry, string $sSchemaName): string
     {
