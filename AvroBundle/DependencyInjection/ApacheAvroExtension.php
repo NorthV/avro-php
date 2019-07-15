@@ -1,13 +1,13 @@
 <?php
 
-namespace Acme\AvroBundle\DependencyInjection;
+namespace Apache\AvroBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class AcmeAvroExtension extends Extension
+class ApacheAvroExtension extends Extension
 {
 
 

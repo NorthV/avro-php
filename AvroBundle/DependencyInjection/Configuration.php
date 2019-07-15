@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\AvroBundle\DependencyInjection;
+namespace Apache\AvroBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -16,14 +16,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('acme_avro');
-
-        $treeBuilder->getRootNode()
-            ->children()
-                ->scalarNode('avro_registry_link')->end()
-                ->scalarNode('aaa')->end()
-            ->end()
-        ;
+        $treeBuilder = new TreeBuilder('apache_avro');
 
         return $treeBuilder;
     }

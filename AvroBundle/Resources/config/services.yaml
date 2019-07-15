@@ -13,8 +13,8 @@ parameters:
     avro_confluent_get_by_ver_id:   '%avro_confluent_link%/schemas/ids'
 
 services:
-    Avro\Service\AvroSerDe:
-    Avro\Registry\SchemaRegistry:
+    Apache\Avro\Service\AvroSerDe:
+    Apache\Avro\Registry\SchemaRegistry:
         arguments:
             $sLink:                 '%avro_registry_link%'
             $sLinkGetList:          '%avro_registry_get_list%'
@@ -23,5 +23,5 @@ services:
             $sLinkGetVersion:       '%avro_registry_get_version%'
             $sLinkGetByVerId:       '%avro_confluent_get_by_ver_id%'
 
-    Acme\AvroBundle\Controller\AvroSerDeController:
+    Apache\AvroBundle\Controller\AvroSerDeController:
         tags: ['controller.service_arguments']

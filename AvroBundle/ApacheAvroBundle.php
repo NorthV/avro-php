@@ -1,10 +1,10 @@
 <?php
 
-namespace Acme\AvroBundle;
+namespace Apache\AvroBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AcmeAvroBundle extends Bundle
+class ApacheAvroBundle extends Bundle
 {
 
 
