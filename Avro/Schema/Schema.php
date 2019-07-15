@@ -121,6 +121,11 @@ class Schema
             ], true);
     }
 
+    /**
+     * @param string $json
+     * @return Schema
+     * @throws SchemaParseException
+     */
     public static function parse(string $json): self
     {
         $schemata = new NamedSchemata();

@@ -7,9 +7,16 @@ use Apache\Avro\DataIO\DataIOReader;
 use Apache\Avro\DataIO\DataIOWriter;
 use Apache\Avro\Datum\IODatumReader;
 use Apache\Avro\Datum\IODatumWriter;
+use Apache\Avro\Exception\BadRequestStatusCodeException;
 use Apache\Avro\Exception\DataIoException;
+use Apache\Avro\Exception\SchemaParseException;
 use Apache\Avro\IO\StringIO;
 use Apache\Avro\Schema\Schema;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use JsonException;
+use Psr\Http\Message\StreamInterface;
+
 
 class SchemaRegistry
 {
@@ -33,74 +40,99 @@ class SchemaRegistry
     	$this->sLinkGetByVerId = $sLinkGetByVerId;
     }
 
-	/**
+    /**
+     * @param $sLink
+     * @return StreamInterface
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
+     */
+    public function file_get($sLink) {
+        $oClient = new Client();
+        $res = $oClient->request('GET', $sLink);
+        $iCode = $res->getStatusCode();
+        if ($iCode !== 200) {
+            throw new BadRequestStatusCodeException($sLink, $iCode);
+        }
+	    return $res->getBody();
+    }
+
+    /**
      *
+     * @return array
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
      */
     public function getList(): array
     {
-        $sListJson = file_get_contents($this->sLinkGetList);
-        $aList = json_decode($sListJson, true);
+        $sListJson = $this->file_get($this->sLinkGetList);
+        $aList = json_decode($sListJson, true, 512,  JSON_THROW_ON_ERROR);
         return $aList['entities'] ?? [];
 	}
 
     /**
      * @param int $id
      * @return array
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
      */
     public function getSchemaMetaById(int $id): array
     {
-        $sJson = file_get_contents($this->sLinkGetMetaById . "/{$id}");
-        $aSchemaMeta = json_decode($sJson, true);
+        $sJson = $this->file_get($this->sLinkGetMetaById . "/{$id}");
+        $aSchemaMeta = json_decode($sJson, true, 512,  JSON_THROW_ON_ERROR);
         return $aSchemaMeta;
 	}
 
 
-
-
     /**
      * @param string $name
+     * @param int $version_num
      * @return array
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
      */
     public function getSchemaVersionByNum(string $name, int $version_num): array
     {
-        $sJson = file_get_contents(str_replace('{{schema_name}}', $name, $this->sLinkGetVersion) . "/{$version_num}");
-        $aSchemaVersion = json_decode($sJson, true);
+        $sJson = $this->file_get(str_replace('{{schema_name}}', $name, $this->sLinkGetVersion) . "/{$version_num}");
+        $aSchemaVersion = json_decode($sJson, true,512,  JSON_THROW_ON_ERROR);
         return $aSchemaVersion;
 	}
 
     /**
      * @param string $name
      * @return array
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
      */
     public function getSchemaLastVersion(string $name): array
     {
-        $sSchemaJson = file_get_contents(str_replace('{{schema_name}}', $name, $this->sLinkGetLastVersion));
-        $aSchemaVersion = json_decode($sSchemaJson, true);
+        $sSchemaJson = $this->file_get(str_replace('{{schema_name}}', $name, $this->sLinkGetLastVersion));
+        $aSchemaVersion = json_decode($sSchemaJson, true, 512,  JSON_THROW_ON_ERROR);
         return $aSchemaVersion;
 	}
-
-
 
 
     /**
      * @param int $id
      * @return Schema
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
+     * @throws SchemaParseException
      */
     public function getByVerId(int $id): Schema
     {
-        $sJson = file_get_contents($this->sLinkGetByVerId . "/{$id}");
-        $o = json_decode($sJson);
+        $sJson = $this->file_get($this->sLinkGetByVerId . "/{$id}");
+        $o = json_decode($sJson, false, 512,  JSON_THROW_ON_ERROR);
         $oSchema = Schema::parse($o->schema);
         return $oSchema;
     }
 
 
-
-
-
     /**
      * @param string $name
      * @return Schema
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
+     * @throws SchemaParseException
      */
     public function getByName(string $name): Schema
     {
@@ -114,6 +146,9 @@ class SchemaRegistry
      * @param string $name
      * @param int $version_num
      * @return Schema
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
+     * @throws SchemaParseException
      */
     public function getByNameVerNum(string $name, int $version_num): Schema
     {
@@ -124,13 +159,14 @@ class SchemaRegistry
     }
 
 
-
-
-
     /**
      * @param int $id
      * @param int $version_num
      * @return Schema
+     * @throws BadRequestStatusCodeException
+     * @throws GuzzleException
+     * @throws JsonException
+     * @throws SchemaParseException
      */
     public function getByIdVerNum(int $id, int $version_num): Schema
     {
@@ -178,10 +214,9 @@ class SchemaRegistry
     }
 
 
-
-
     /**
-     * @param array $aMetadata
+     * @param int $iSchemaId
+     * @param int $iVersionNum
      * @return string
      */
     public function generatePacketHeader(int $iSchemaId, int $iVersionNum): string
@@ -192,14 +227,18 @@ class SchemaRegistry
         return $res;
     }
 
+
     /**
+     * @param string $sHeader
+     * @return array
+     * @throws DataIoException
      */
     public function parsePacketHeader(string $sHeader): array
     {
         $pos = 0;
         $sMagic = substr($sHeader, $pos, $len = strlen($this->magic));
         if ($sMagic !== $this->magic) {
-            throw new DataIoException(sprintf('Not an Avro data file: %s does not match %s', bin2hex($magic), bin2hex($this->magic)));
+            throw new DataIoException(sprintf('Not an Avro data file: %s does not match %s', bin2hex($sMagic), bin2hex($this->magic)));
         }
 
         $pos += $len;
@@ -229,6 +268,8 @@ class SchemaRegistry
     }
 
     /**
+     * @param string $bin
+     * @return int
      */
     public function encodeBin2int(string $bin): int
     {

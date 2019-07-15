@@ -4,8 +4,9 @@
     "type": "symfony-bundle",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.2",
-        "ext-json": "*"
+        "php": "^7.3",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "config": {
         "sort-packages": true
