@@ -12,6 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Apache\Avro\Service\AvroSerDe;
@@ -34,9 +35,9 @@ class AvroSerDeController extends AbstractController
      * @throws SchemaParseException
      * @throws GuzzleException
      */
-    public function index(AvroSerDe $oAvroSerDe, SchemaRegistry $oSchemaRegistry, Request $oRequest): array
+    public function index(AvroSerDe $oAvroSerDe, SchemaRegistry $oSchemaRegistry, Request $oRequest)
     {
-        $Q = $oRequest->query;
+        $Q = $oRequest->request;
         $sAction = (string) $Q->get('action');
         $sSchemaName = (string) $Q->get('schema_name');
         $sDataJson = (string) $Q->get('data_json');
@@ -44,10 +45,10 @@ class AvroSerDeController extends AbstractController
 
         $aList = $oSchemaRegistry->getList();
 
-        $res = '';
-        if ($sAction === 'serialize') {
+        $sResultPacket = '';
+        if (in_array($sAction, ['serialize', 'serialize-bin'], true)) {
             if ($sSchemaName) {
-                $res = $oAvroSerDe->serialize($sDataJson, $oSchemaRegistry, $sSchemaName);
+                $sResultPacket = $oAvroSerDe->serialize($sDataJson, $oSchemaRegistry, $sSchemaName);
                 $oSchema = $oSchemaRegistry->getByName($sSchemaName);
             }
         }
@@ -65,18 +66,26 @@ class AvroSerDeController extends AbstractController
         }
 
 
-        return [
-            'list'      => $aList,
-            'schema_name' => $sSchemaName,
-            'schema_json' => $oSchema ?? '',
-            'data_json' => $sDataJson,
-            'result'    => bin2hex($res),
-            'packet'    => $sPacketHex,
-            'unpacked_schema_json' => $oUnpackedSchema ?? '',
-            'unpacked_schema_id' => $iSchemaId ?? '',
-            'unpacked_schema_ver_num' => $iVersionNum ?? '',
-            'unpacked_data_json' => $sUnpackedDataJson ?? '',
-        ];
+        if ($sAction === 'serialize-bin') {
+            $res = new Response($sResultPacket);
+            $dispositionHeader = $res->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'packet.avro');
+            $res->headers->set('Content-Disposition', $dispositionHeader);
+        }
+        else {
+            $res = [
+                'list'      => $aList,
+                'schema_name' => $sSchemaName,
+                'schema_json' => $oSchema ?? '',
+                'data_json' => $sDataJson,
+                'result'    => bin2hex($sResultPacket),
+                'packet'    => $sPacketHex,
+                'unpacked_schema_json' => $oUnpackedSchema ?? '',
+                'unpacked_schema_id' => $iSchemaId ?? '',
+                'unpacked_schema_ver_num' => $iVersionNum ?? '',
+                'unpacked_data_json' => $sUnpackedDataJson ?? '',
+            ];
+        }
+        return $res;
     }
 
     /**

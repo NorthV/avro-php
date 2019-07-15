@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="container-fluid">
-    <form action="" method="GET">
+    <form action="" method="POST">
         <div class="form-group">
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
             <select name="schema_name" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -34,9 +34,12 @@
             <div class="col-auto my-1">
                 <button name="action" value="serialize" type="submit" class="btn btn-primary">Submit</button>
             </div>
+            <div class="col-auto my-1">
+                <button name="action" value="serialize-bin" type="submit" class="btn btn-primary">Download binary packet</button>
+            </div>
         </div>
     </form>
-    <form action="" method="GET">
+    <form action="" method="POST">
         <div class="form-group">
             <label for="formPacket">Packet</label>
             <textarea name="packet" class="form-control" id="formPacket" rows="3">{{ packet }}</textarea>
